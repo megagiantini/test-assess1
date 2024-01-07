@@ -1,0 +1,61 @@
+Rancangan Spesifikasi API untuk Fitur Pinjol
+
+Endpoint: `/pinjol/apply_loan`
+- Metode: POST
+- Deskripsi: Endpoint ini digunakan untuk mengajukan pinjaman baru.
+- Request Body:
+  {
+    "user_id": "12345",
+    "amount": 1000000,
+    "tenure": 12,
+    "interest_rate": 5.0
+  }
+  
+- Response:
+  {
+    "loan_id": "67890",
+    "status": "pending",
+    "message": "Loan application submitted successfully. Awaiting approval."
+  }
+  
+
+Endpoint: `/pinjol/check_loan_status/{loan_id}`
+- Metode: GET
+- Deskripsi: Endpoint ini digunakan untuk memeriksa status pinjaman berdasarkan ID pinjaman.
+- Response:
+  {
+    "loan_id": "67890",
+    "status": "approved",
+    "amount": 1000000,
+    "tenure": 12,
+    "interest_rate": 5.0,
+    "approved_amount": 950000,
+    "repayment_schedule": [
+      {"due_date": "2024-02-01", "amount_due": 79250},
+      {"due_date": "2024-03-01", "amount_due": 79250},
+      // ... (Jadwal pembayaran berikutnya)
+    ]
+  }
+
+Endpoint: `/pinjol/repay_loan/{loan_id}`
+- Metode: POST
+- Deskripsi: Endpoint ini digunakan untuk membayar angsuran pinjaman.
+- Request Body:
+  {
+    "amount_paid": 80000,
+    "payment_date": "2024-02-01"
+  }
+  
+- Response:
+  {
+    "loan_id": "67890",
+    "status": "repaid",
+    "message": "Payment received. Loan fully repaid."
+  }
+
+Catatan:
+1. Pastikan menggunakan protokol keamanan seperti HTTPS untuk semua endpoint.
+2. Endpoints dan atribut dapat disesuaikan dengan kebutuhan bisnis dan arsitektur sistem yang sesungguhnya.
+3. Validasi dan kontrol akses yang memadai harus diimplementasikan untuk melindungi API.
+4. Gunakan OAuth atau mekanisme otentikasi yang sesuai untuk melindungi endpoint sensitif.
+5. Pastikan menyertakan dokumentasi yang jelas untuk setiap endpoint, menyebutkan keperluan header dan payload yang diperlukan.
